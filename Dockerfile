@@ -1,5 +1,7 @@
 FROM jenkins/inbound-agent
 
+ENV OLDUSER=$(whoami)
+
 # Install Gradle
 USER root
 RUN apt-get update && apt-get install -y wget unzip
@@ -21,8 +23,11 @@ ENV MAVEN_HOME /opt/maven/apache-maven-3.9.9
 ENV PATH $MAVEN_HOME/bin:$PATH
 
 # Install Java 11, 17, 21
-RUN add-apt-repository ppa:openjdk-r/ppa
-RUN apt-get update \
-	&& apt-get install -y openjdk-11-jdk \
-	&& apt-get install -y openjdk-17-jdk \
-	&& apt-get install -y openjdk-21-jdk
+RUN apt-get install -y unzip zip wget
+USER ${OLDUSER}
+RUN curl -s "https://get.sdkman.io" | bash \
+	&& source "$HOME/.sdkman/bin/sdkman-init.sh" \
+	&& sdk install java 11.0.25-tem \
+	&& sdk install java 17.0.13-tem \
+	&& sdk install java 21.0.5-tem
+	
