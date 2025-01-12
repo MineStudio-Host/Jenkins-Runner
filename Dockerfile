@@ -24,10 +24,9 @@ ENV PATH $MAVEN_HOME/bin:$PATH
 
 # Install Java 11, 17, 21
 RUN apt-get install -y unzip zip wget
-USER ${OLDUSER}
+USER jenkins
 RUN curl -s "https://get.sdkman.io" | bash \
 	&& source "$HOME/.sdkman/bin/sdkman-init.sh" \
 	&& sdk install java 11.0.25-tem \
 	&& sdk install java 17.0.13-tem \
 	&& sdk install java 21.0.5-tem
-	
