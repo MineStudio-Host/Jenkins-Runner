@@ -20,11 +20,8 @@ RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.
 ENV MAVEN_HOME /opt/maven/apache-maven-3.9.9
 ENV PATH $MAVEN_HOME/bin:$PATH
 
-# Install Java 11
-RUN apt-get install -y openjdk-11-jdk
-
-# Install Java 17
-RUN apt-get install -y openjdk-17-jdk
-
-# Install Java 21
-RUN apt-get install -y openjdk-21-jdk
+# Install Java 11, 17, 21
+RUN apt-get update \
+	&& apt-get install -y openjdk-11-jdk \
+	&& apt-get install -y openjdk-17-jdk \
+	&& apt-get install -y openjdk-21-jdk
